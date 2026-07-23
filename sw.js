@@ -1,4 +1,4 @@
-const CACHE_NAME = 'koreat-cache-v1';
+const CACHE_NAME = 'kfood-compass-cache-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -12,6 +12,7 @@ const ASSETS = [
 
 // Install Event
 self.addEventListener('install', e => {
+  self.skipWaiting();
   e.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(ASSETS);
@@ -30,15 +31,24 @@ self.addEventListener('activate', e => {
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
 });
 
-// Fetch Event
+// Fetch Event (Network falling back to Cache - ensures users see updates immediately)
 self.addEventListener('fetch', e => {
   e.respondWith(
-    caches.match(e.request).then(cachedResponse => {
-      return cachedResponse || fetch(e.request);
-    })
+    fetch(e.request)
+      .then(response => {
+        // Cache successful requests dynamically
+        if (response.status === 200 && e.request.method === 'GET' && e.request.url.startsWith(self.location.origin)) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(e.request, responseClone);
+          });
+        }
+        return response;
+      })
+      .catch(() => caches.match(e.request))
   );
 });
