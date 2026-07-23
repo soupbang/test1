@@ -79,7 +79,7 @@ function initMap() {
   L.control.attribution({
     position: 'bottomleft',
     prefix: false
-  }).addAttribution('&copy; <a href="https://carto.com/">CARTO</a> | KO-REAT Wisdom Map')
+  }).addAttribution('&copy; <a href="https://carto.com/">CARTO</a> | K-Food Compass')
     .addTo(map);
 
   // Draw user position marker

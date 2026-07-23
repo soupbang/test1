@@ -1,6 +1,6 @@
 {
-  "name": "KO-REAT Map - Korean Culinary Explorer",
-  "short_name": "KO-REAT",
+  "name": "K-Food Compass - Korean Culinary Explorer",
+  "short_name": "K-Food Compass",
   "description": "Customized Korean Culinary Explorer for diverse diets (Vegan, Halal, Mild Tastes)",
   "start_url": "/index.html",
   "display": "standalone",

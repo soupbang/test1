@@ -1,6 +1,6 @@
-# KO-REAT Map - Customized Korean Culinary Explorer
+# K-Food Compass - Customized Korean Culinary Explorer
 
-KO-REAT Map is an interactive, responsive Progressive Web App (PWA) designed to help foreigners visiting South Korea find customized dining and cafe establishments matching their dietary needs (Vegan, Halal, Gluten-Free, Pescatarian) and culinary tastes (Mild Tastes, Fermentation, Zero-Waste). 
+K-Food Compass is an interactive, responsive Progressive Web App (PWA) designed to help foreigners visiting South Korea find customized dining and cafe establishments matching their dietary needs (Vegan, Halal, Gluten-Free, Pescatarian) and culinary tastes (Mild Tastes, Fermentation, Zero-Waste). 
 
 Built with a clean forest-green and white eco-theme, the app reveals the cultural, biological, and historical wisdom behind traditional Korean dishes and integrates directly with Naver Maps for real-world navigation.
 
