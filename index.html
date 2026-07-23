@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KO-REAT Map - Customized Korean Culinary Explorer</title>
+  <!-- PWA Manifest & Colors -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2e7d32">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Custom Style Sheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Left Sidebar: Controls & List -->
+    <aside class="sidebar">
+      
+      <!-- Brand Header -->
+      <div class="sidebar-header">
+        <div class="brand-section">
+          <div class="logo-icon">🥢</div>
+          <h1 class="brand-name">KO-<span>REAT</span></h1>
+        </div>
+        <div class="brand-tagline">Customized Korean Culinary Wisdom Explorer</div>
+      </div>
+
+      <!-- GPS Simulator Bar -->
+      <div class="gps-bar">
+        <div class="gps-title-row">
+          <span class="gps-title">📍 GPS Simulator</span>
+          <span class="gps-status">Active Signal</span>
+        </div>
+        <div id="gps-hotspots" class="gps-selector-container">
+          <!-- Populated dynamically from data.js -->
+        </div>
+      </div>
+
+      <!-- Filters & Restaurant Cards scroll content -->
+      <div class="sidebar-content">
+        
+        <!-- Dietary Restrictions Filter Group -->
+        <div class="filter-group">
+          <span class="section-title">Dietary Profile</span>
+          <div class="filter-grid">
+            <button class="filter-btn diet" data-value="Vegan">
+              <span class="filter-icon">🥦</span> Vegan
+            </button>
+            <button class="filter-btn diet" data-value="Halal">
+              <span class="filter-icon">🕌</span> Halal
+            </button>
+            <button class="filter-btn diet" data-value="Gluten-Free">
+              <span class="filter-icon">🌾</span> Gluten-Free
+            </button>
+            <button class="filter-btn diet" data-value="Pescatarian">
+              <span class="filter-icon">🐟</span> Pescatarian
+            </button>
+          </div>
+        </div>
+
+        <!-- Taste & Philosophy Preferences Filter Group -->
+        <div class="filter-group">
+          <span class="section-title">Culinary Taste & Value</span>
+          <div class="filter-grid">
+            <button class="filter-btn tag" data-value="Mild Taste">
+              <span class="filter-icon">🍲</span> Mild Taste
+            </button>
+            <button class="filter-btn tag" data-value="Fermented Food">
+              <span class="filter-icon">🏺</span> Fermented Food
+            </button>
+            <button class="filter-btn tag" data-value="Zero-Waste">
+              <span class="filter-icon">♻️</span> Zero-Waste
+            </button>
+            <button class="filter-btn tag" data-value="Temple Cuisine">
+              <span class="filter-icon">☸️</span> Temple Cuisine
+            </button>
+            <button class="filter-btn tag" data-value="Local Ingredients">
+              <span class="filter-icon">🌾</span> Local Sourced
+            </button>
+          </div>
+        </div>
+
+        <!-- Matching list header and cards -->
+        <div>
+          <span class="section-title">Matching Explore List</span>
+          <div id="restaurant-list-container" class="restaurant-list">
+            <!-- Populated dynamically by app.js -->
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Map Pane & Overlays -->
+    <main class="map-pane">
+      
+      <!-- Leaflet Map Container -->
+      <div id="map"></div>
+
+      <!-- Slide-Up/Slide-In Detail Overlay Panel -->
+      <div id="details-panel" class="overlay-panel">
+        
+        <!-- Dismiss Button -->
+        <button id="close-panel-btn" class="close-btn" aria-label="Close details panel">✕</button>
+
+        <!-- Establishment Image Backdrop Header -->
+        <div class="overlay-header">
+          <img id="overlay-img" class="overlay-image" src="" alt="Establishment signature dish">
+          <div class="overlay-header-content">
+            <h2 id="overlay-restaurant-name" class="overlay-name">Place Name</h2>
+            <div id="overlay-tags" class="card-tags">
+              <!-- Rendered tags -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Detail Navigation Tabs -->
+        <div class="overlay-tabs" style="grid-template-columns: 1fr 1fr 1fr;">
+          <button class="tab-btn active" data-tab="wisdom">✨ Wisdom Story</button>
+          <button class="tab-btn" data-tab="menu">📖 Menu</button>
+          <button class="tab-btn" data-tab="route">🚶 Walk Guidance</button>
+        </div>
+
+        <!-- Dynamic Content Body -->
+        <div class="overlay-body">
+          
+          <!-- Wisdom Tab -->
+          <div id="wisdom-tab-content" class="tab-content active">
+            <!-- Populated by app.js (generateWisdomStory) -->
+          </div>
+
+          <!-- Menu Tab -->
+          <div id="menu-tab-content" class="tab-content">
+            <div id="menu-items-container" class="menu-list">
+              <!-- Populated dynamically by app.js (renderMenu) -->
+            </div>
+          </div>
+
+          <!-- Route Tab -->
+          <div id="route-tab-content" class="tab-content">
+            <div class="route-card">
+              
+              <!-- Metrics grid -->
+              <div class="route-summary">
+                <div class="route-metric">
+                  <span class="metric-label">Estimated Walk</span>
+                  <span id="route-total-dist" class="metric-value">0 m</span>
+                </div>
+                <div class="route-metric">
+                  <span class="metric-label">Duration</span>
+                  <span id="route-total-time" class="metric-value">0 mins</span>
+                </div>
+              </div>
+
+              <!-- List of steps -->
+              <div id="route-steps-container" class="route-instructions">
+                <!-- Steps generated by app.js -->
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Leaflet JS CDN -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Data Script -->
+  <script src="data.js"></script>
+  <!-- Core Logic Script -->
+  <script src="app.js"></script>
+
+  <!-- Mobile App Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <button class="bottom-nav-btn active" data-tab="map">
+      <span class="nav-icon">🗺️</span>
+      <span>Map</span>
+    </button>
+    <button class="bottom-nav-btn" data-tab="list">
+      <span class="nav-icon">📋</span>
+      <span>Explore</span>
+    </button>
+    <button class="bottom-nav-btn" data-tab="filters">
+      <span class="nav-icon">🔍</span>
+      <span>Filters</span>
+    </button>
+  </nav>
+
+</body>
+</html>
